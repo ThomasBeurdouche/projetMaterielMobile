@@ -1,0 +1,35 @@
+*.iml
+.gradle
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+.cxx
+local.properties
+
+
+# Dossiers générés par Android Studio ou Gradle
+.idea/
+app/build/
+build/
+.gradle/
+gradle/
+
+# Fichiers générés par Gradle
+gradle-wrapper.jar
+.gradle.kts
+
+# Fichiers spécifiques à Gradle
+gradlew
+gradlew.bat
+
+# Fichiers spécifiques à Android Studio
+*.ipr
+*.iws
