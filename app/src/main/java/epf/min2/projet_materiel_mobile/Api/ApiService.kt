@@ -1,5 +1,6 @@
 package epf.min2.projet_materiel_mobile.Api
 
+import epf.min2.projet_materiel_mobile.Pays
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -9,9 +10,13 @@ import retrofit2.http.Path
 
 interface ApiService {
 
+    @GET("/v3.1/all")
+    suspend fun getPays():Response<List<Pays>>
+
     /*
     @POST("/rmh/user/")
     suspend fun createUser(@Body newUser: NewUser): Response<Unit>
+
     @GET("/rmh/user/")
     suspend fun getUsers(): Response<List<User>>
 

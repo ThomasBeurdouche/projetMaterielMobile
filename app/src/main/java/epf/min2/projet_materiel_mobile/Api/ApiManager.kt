@@ -1,10 +1,20 @@
 package epf.min2.projet_materiel_mobile.Api
 
+import epf.min2.projet_materiel_mobile.Pays
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.security.SecureRandom
+import java.security.cert.X509Certificate
+import java.util.concurrent.TimeUnit
+import javax.net.ssl.HostnameVerifier
+import javax.net.ssl.SSLContext
+import javax.net.ssl.SSLSession
+import javax.net.ssl.TrustManager
+import javax.net.ssl.X509TrustManager
+
 
 class ApiManager() {
 
@@ -18,6 +28,7 @@ class ApiManager() {
 
         val client = OkHttpClient.Builder()
             .addInterceptor(httpLoggingInterceptor)
+            .readTimeout(30, TimeUnit.SECONDS)
             .build()
 
         val retrofit = Retrofit.Builder()
@@ -27,6 +38,10 @@ class ApiManager() {
             .build()
 
         apiService = retrofit.create(ApiService::class.java)
+    }
+
+    suspend fun getPays():Response<List<Pays>>{
+        return apiService.getPays()
     }
 
     /*
@@ -46,5 +61,6 @@ class ApiManager() {
         return apiService.getUser(idUser)
     }
     */
+
 
 }
