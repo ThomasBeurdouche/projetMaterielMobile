@@ -1,10 +1,12 @@
 package epf.min2.projet_materiel_mobile
 
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.squareup.picasso.Picasso
 
@@ -35,5 +37,14 @@ class PaysAdapter(val pays: List<Pays>) : RecyclerView.Adapter<PaysViewHolder>()
         Picasso.get()
             .load(pays.flags.png)
             .into(imageView2)
+
+        val cardVIew = view.findViewById<CardView>(R.id.pays_view_cardview)
+        cardVIew.setOnClickListener() {
+            with(it.context){
+                val intent = Intent(this, DetailPaysActivity::class.java)
+                intent.putExtra("pays",pays)
+                startActivity(intent)
+            }
+        }
     }
 }

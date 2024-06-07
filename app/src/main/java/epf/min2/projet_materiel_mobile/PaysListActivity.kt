@@ -1,14 +1,12 @@
 package epf.min2.projet_materiel_mobile
 
 import android.os.Bundle
-import android.widget.Toast
+import android.widget.SearchView
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import epf.min2.projet_materiel_mobile.Api.ApiManager
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withContext
 import retrofit2.Response
 import java.lang.Exception
 
@@ -18,6 +16,7 @@ class PaysListActivity : ComponentActivity() {
         setContentView(R.layout.pays_list_layout)
 
         val recyclerView = findViewById<RecyclerView>(R.id.pays_recyclerview)
+        val barreRecherche = findViewById<SearchView>(R.id.searchViewPaysList)
 
         val apiManager = ApiManager()
 
@@ -44,7 +43,6 @@ class PaysListActivity : ComponentActivity() {
                         attempts++
                         println("Exception: $e")
                         if (attempts >= maxAttempts) {
-                            Toast.makeText(this@PaysListActivity, "Un problème de connexion est survenu après $maxAttempts tentatives", Toast.LENGTH_LONG).show()
                         } else {
                             Thread.sleep(1000)
                         }
@@ -52,8 +50,26 @@ class PaysListActivity : ComponentActivity() {
                 }
             } catch (e: Exception) {
                 println("Exception: $e")
-                Toast.makeText(this@PaysListActivity, "Un problème de connexion est survenu", Toast.LENGTH_LONG).show()
             }
         }
+
+        barreRecherche.setOnClickListener{
+            barreRecherche.isIconified = false
+        }
+
+        barreRecherche.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                runBlocking {
+                    recyclerView.layoutManager = LinearLayoutManager(this@PaysListActivity, LinearLayoutManager.VERTICAL, false)
+                    recyclerView.adapter = PaysAdapter(apiManager.getPaysByName(query))
+                }
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return true
+            }
+        })
+
     }
 }

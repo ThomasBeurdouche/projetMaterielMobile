@@ -10,21 +10,13 @@ import retrofit2.http.Path
 
 interface ApiService {
 
-    @GET("/v3.1/all")
+    @GET("/v3.1/all/")
     suspend fun getPays():Response<List<Pays>>
 
-    /*
-    @POST("/rmh/user/")
-    suspend fun createUser(@Body newUser: NewUser): Response<Unit>
+    @GET("/v3.1/name/{query}/")
+    suspend fun getPaysByNameOfPays(@Path("query") query: String?):Response<List<Pays>>
 
-    @GET("/rmh/user/")
-    suspend fun getUsers(): Response<List<User>>
-
-    @GET("/rmh/user/{id}/")
-    suspend fun getUser(@Path("id") userId: String): Response<User>
-
-    @PATCH("rmh/user/{id}/")
-    suspend fun modifyUser(@Path("id") userId: Int, @Body user: User):Response<Unit>
-    */
+    @GET("/v3.1/capital/{query}/")
+    suspend fun getPaysByNameOfCapital(@Path("query") query: String?):Response<List<Pays>>
 
 }
