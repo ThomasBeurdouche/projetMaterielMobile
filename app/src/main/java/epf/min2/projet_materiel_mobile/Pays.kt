@@ -3,7 +3,7 @@ package epf.min2.projet_materiel_mobile
 data class Pays(
     val name:Name,
     val capital:List<String>,
-    val flag:Flags,
+    val flags:Flag,
     val continents:List<String>,
     val population:Int
 )
@@ -13,6 +13,6 @@ data class Name(
     val official:String
 )
 
-data class Flags(
+data class Flag(
     val png:String
 )

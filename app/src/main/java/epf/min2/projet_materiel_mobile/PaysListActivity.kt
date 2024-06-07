@@ -1,13 +1,16 @@
 package epf.min2.projet_materiel_mobile
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import epf.min2.projet_materiel_mobile.Api.ApiManager
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
-import okhttp3.internal.wait
+import kotlinx.coroutines.withContext
 import retrofit2.Response
+import java.lang.Exception
 
 class PaysListActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -19,22 +22,44 @@ class PaysListActivity : ComponentActivity() {
         val apiManager = ApiManager()
 
         runBlocking {
-            var response: Response<List<Pays>> = apiManager.getPays()
-            while (response.isSuccessful){
-                response = apiManager.getPays()
-                Thread.sleep(1000)
-            }
-            if (response.isSuccessful){
-                val pays : List<Pays> = response.body()!!
-                recyclerView.layoutManager = LinearLayoutManager(this@PaysListActivity, LinearLayoutManager.VERTICAL, false)
-                recyclerView.adapter = PaysAdapter(pays)
-            } else {
-                println(response.errorBody())
-            }
+            try {
+                var response: Response<List<Pays>>
+                var success = false
+                var attempts = 0
+                val maxAttempts = 5
 
+                while (!success && attempts < maxAttempts) {
+                    try {
+                        response = apiManager.getPays()
+                        if (response.isSuccessful && response.body() != null) {
+                            success = true
+                            val pays: List<Pays> = response.body()!!
+                            withContext(Dispatchers.Main) {
+                                recyclerView.layoutManager = LinearLayoutManager(this@PaysListActivity, LinearLayoutManager.VERTICAL, false)
+                                recyclerView.adapter = PaysAdapter(pays)
+                            }
+                        } else {
+                            println("Error: ${response.errorBody()}")
+                            Thread.sleep(1000)
+                        }
+                    } catch (e: Exception) {
+                        attempts++
+                        println("Exception: $e")
+                        if (attempts >= maxAttempts) {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(this@PaysListActivity, "Un problème de connexion est survenu après $maxAttempts tentatives", Toast.LENGTH_LONG).show()
+                            }
+                        } else {
+                            Thread.sleep(1000)
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                println("Exception: $e")
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(this@PaysListActivity, "Un problème de connexion est survenu", Toast.LENGTH_LONG).show()
+                }
+            }
         }
-
     }
-
-
 }

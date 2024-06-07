@@ -24,16 +24,16 @@ class PaysAdapter(val pays: List<Pays>) : RecyclerView.Adapter<PaysViewHolder>()
     override fun onBindViewHolder(holder: PaysViewHolder, position: Int) {
         val pays: Pays = pays[position]
         val view : View = holder.itemView
-        val paysTextView : TextView = view.findViewById<TextView>(R.id.pays_name_textview)
+        val paysTextView = view.findViewById<TextView>(R.id.pays_name_textview)
         paysTextView.text = pays.name.official
 
         val imageView1 = view.findViewById<ImageView>(R.id.pays_image_imageView1)
         val imageView2 = view.findViewById<ImageView>(R.id.pays_image_imageView2)
         Picasso.get()
-            .load(pays.flag.png)
+            .load(pays.flags.png)
             .into(imageView1)
         Picasso.get()
-            .load(pays.flag.png)
+            .load(pays.flags.png)
             .into(imageView2)
     }
 }
