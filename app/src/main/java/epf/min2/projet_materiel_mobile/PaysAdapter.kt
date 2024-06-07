@@ -25,7 +25,7 @@ class PaysAdapter(val pays: List<Pays>) : RecyclerView.Adapter<PaysViewHolder>()
         val pays: Pays = pays[position]
         val view : View = holder.itemView
         val paysTextView = view.findViewById<TextView>(R.id.pays_name_textview)
-        paysTextView.text = pays.name.official
+        paysTextView.text = pays.name.common
 
         val imageView1 = view.findViewById<ImageView>(R.id.pays_image_imageView1)
         val imageView2 = view.findViewById<ImageView>(R.id.pays_image_imageView2)

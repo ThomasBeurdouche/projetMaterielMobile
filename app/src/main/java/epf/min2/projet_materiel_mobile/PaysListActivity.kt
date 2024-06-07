@@ -34,10 +34,8 @@ class PaysListActivity : ComponentActivity() {
                         if (response.isSuccessful && response.body() != null) {
                             success = true
                             val pays: List<Pays> = response.body()!!
-                            withContext(Dispatchers.Main) {
-                                recyclerView.layoutManager = LinearLayoutManager(this@PaysListActivity, LinearLayoutManager.VERTICAL, false)
-                                recyclerView.adapter = PaysAdapter(pays)
-                            }
+                            recyclerView.layoutManager = LinearLayoutManager(this@PaysListActivity, LinearLayoutManager.VERTICAL, false)
+                            recyclerView.adapter = PaysAdapter(pays)
                         } else {
                             println("Error: ${response.errorBody()}")
                             Thread.sleep(1000)
@@ -46,9 +44,7 @@ class PaysListActivity : ComponentActivity() {
                         attempts++
                         println("Exception: $e")
                         if (attempts >= maxAttempts) {
-                            withContext(Dispatchers.Main) {
-                                Toast.makeText(this@PaysListActivity, "Un problème de connexion est survenu après $maxAttempts tentatives", Toast.LENGTH_LONG).show()
-                            }
+                            Toast.makeText(this@PaysListActivity, "Un problème de connexion est survenu après $maxAttempts tentatives", Toast.LENGTH_LONG).show()
                         } else {
                             Thread.sleep(1000)
                         }
@@ -56,9 +52,7 @@ class PaysListActivity : ComponentActivity() {
                 }
             } catch (e: Exception) {
                 println("Exception: $e")
-                withContext(Dispatchers.Main) {
-                    Toast.makeText(this@PaysListActivity, "Un problème de connexion est survenu", Toast.LENGTH_LONG).show()
-                }
+                Toast.makeText(this@PaysListActivity, "Un problème de connexion est survenu", Toast.LENGTH_LONG).show()
             }
         }
     }
