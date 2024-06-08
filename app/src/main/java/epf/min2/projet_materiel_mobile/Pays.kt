@@ -8,8 +8,8 @@ data class Pays(
     val flags:Flag,
     val continents:List<String>,
     val population:Int,
-    val languages:List<String>,
-    val area:Int,
+
+
     val region:String
 ): Serializable
 

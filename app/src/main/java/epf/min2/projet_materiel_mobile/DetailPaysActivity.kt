@@ -6,10 +6,11 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 
-class DetailPaysActivity : ComponentActivity() {
+class DetailPaysActivity :AppCompatActivity(){
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,7 +35,7 @@ class DetailPaysActivity : ComponentActivity() {
         flagTextView.text = pays.flags.alt
         capitalTextView.text = "Capitale: ${pays.capital.joinToString(", ")}"
         continentTextView.text = "Continent: ${pays.continents.joinToString(", ")}"
-        languageTextView.text = "Langues: ${pays.languages.joinToString(", ")}"
+
         addToFavoritesButton.setOnClickListener {
             val sharedPreferences = getSharedPreferences("Favorites", MODE_PRIVATE)
             val editor = sharedPreferences.edit()

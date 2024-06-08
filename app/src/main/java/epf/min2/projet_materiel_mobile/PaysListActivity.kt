@@ -1,22 +1,27 @@
 package epf.min2.projet_materiel_mobile
 
+
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.SearchView
 import androidx.activity.ComponentActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import epf.min2.projet_materiel_mobile.Api.ApiManager
 import kotlinx.coroutines.runBlocking
 import retrofit2.Response
-import java.lang.Exception
 
-class PaysListActivity : ComponentActivity() {
+
+class PaysListActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.pays_list_layout)
 
         val recyclerView = findViewById<RecyclerView>(R.id.pays_recyclerview)
         val barreRecherche = findViewById<SearchView>(R.id.searchViewPaysList)
+        val addToFavoritesButton = findViewById<Button>(R.id.buttonFavorites)
 
         val apiManager = ApiManager()
 
@@ -70,6 +75,14 @@ class PaysListActivity : ComponentActivity() {
                 return true
             }
         })
+        val buttonFavorites = findViewById<Button>(R.id.buttonFavorites)
+        buttonFavorites.setOnClickListener { // Ouvrir la page des favoris
+            val intent: Intent = Intent(
+                this@PaysListActivity,
+                PaysFavorisActivity::class.java
+            )
+            startActivity(intent)
+        }
 
     }
 }

@@ -27,7 +27,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DetailPaysActivity" />
+        <activity android:name=".DetailPaysActivity"
+          />
+        <activity android:name=".PaysFavorisActivity"
+
+            />
     </application>
 
 </manifest>

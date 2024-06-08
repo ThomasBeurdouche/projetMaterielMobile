@@ -5,11 +5,13 @@
     android:orientation="vertical"
     android:padding="16dp">
 
+
+
+
     <TextView
         android:id="@+id/tvFavorisMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Aucun pays n'a été ajouté aux favoris."
         android:textSize="18sp" />
 
     <ListView

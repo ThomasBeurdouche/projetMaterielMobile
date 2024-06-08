@@ -7,13 +7,25 @@ xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="#BED4E6">
 
+
+        <Button
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:text="Mes Favoris"
+            android:id="@+id/buttonFavorites"
+
+            />
+ >
+
     <SearchView
         android:id="@+id/searchViewPaysList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@color/design_default_color_background"
-        />
+        >
+
+    </SearchView>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -23,7 +35,6 @@ xmlns:tools="http://schemas.android.com/tools"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -36,6 +47,8 @@ xmlns:tools="http://schemas.android.com/tools"
         </LinearLayout>
 
     </ScrollView>
+
+
 
 </LinearLayout>
 
