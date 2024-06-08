@@ -30,13 +30,13 @@ class PaysAdapter(val pays: List<Pays>) : RecyclerView.Adapter<PaysViewHolder>()
         paysTextView.text = pays.name.common
 
         val imageView1 = view.findViewById<ImageView>(R.id.pays_image_imageView1)
-        val imageView2 = view.findViewById<ImageView>(R.id.pays_image_imageView2)
+//        val imageView2 = view.findViewById<ImageView>(R.id.pays_image_imageView2)
         Picasso.get()
             .load(pays.flags.png)
             .into(imageView1)
-        Picasso.get()
-            .load(pays.flags.png)
-            .into(imageView2)
+//        Picasso.get()
+//            .load(pays.flags.png)
+//            .into(imageView2)
 
         val cardVIew = view.findViewById<CardView>(R.id.pays_view_cardview)
         cardVIew.setOnClickListener() {
