@@ -6,9 +6,9 @@ import androidx.activity.ComponentActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import epf.min2.projet_materiel_mobile.Api.ApiManager
-import kotlinx.coroutines.runBlocking
-import retrofit2.Response
-import java.lang.Exception
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class PaysListActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,38 +20,16 @@ class PaysListActivity : ComponentActivity() {
 
         val apiManager = ApiManager()
 
-        runBlocking {
-            try {
-                var response: Response<List<Pays>>
-                var success = false
-                var attempts = 0
-                val maxAttempts = 5
+        val animation = LoadingAnimation(this@PaysListActivity)
 
-                while (!success && attempts < maxAttempts) {
-                    try {
-                        response = apiManager.getPays()
-                        if (response.isSuccessful && response.body() != null) {
-                            success = true
-                            val pays: List<Pays> = response.body()!!
-                            recyclerView.layoutManager = LinearLayoutManager(this@PaysListActivity, LinearLayoutManager.VERTICAL, false)
-                            recyclerView.adapter = PaysAdapter(pays)
-                        } else {
-                            println("Error: ${response.errorBody()}")
-                            Thread.sleep(1000)
-                        }
-                    } catch (e: Exception) {
-                        attempts++
-                        println("Exception: $e")
-                        if (attempts >= maxAttempts) {
-                        } else {
-                            Thread.sleep(1000)
-                        }
-                    }
-                }
-            } catch (e: Exception) {
-                println("Exception: $e")
-            }
+        animation.show()
+
+        CoroutineScope(Dispatchers.Main).launch {
+            recyclerView.layoutManager = LinearLayoutManager(this@PaysListActivity, LinearLayoutManager.VERTICAL, false)
+            recyclerView.adapter = PaysAdapter(apiManager.getPays())
+            animation.dismiss()
         }
+
 
         barreRecherche.setOnClickListener{
             barreRecherche.isIconified = false
@@ -59,10 +37,14 @@ class PaysListActivity : ComponentActivity() {
 
         barreRecherche.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                runBlocking {
+                animation.show()
+
+                CoroutineScope(Dispatchers.Main).launch {
                     recyclerView.layoutManager = LinearLayoutManager(this@PaysListActivity, LinearLayoutManager.VERTICAL, false)
                     recyclerView.adapter = PaysAdapter(apiManager.getPaysByName(query))
+                    animation.dismiss()
                 }
+
                 return true
             }
 
@@ -70,6 +52,5 @@ class PaysListActivity : ComponentActivity() {
                 return true
             }
         })
-
     }
 }
