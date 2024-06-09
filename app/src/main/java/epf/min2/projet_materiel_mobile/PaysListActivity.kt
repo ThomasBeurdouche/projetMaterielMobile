@@ -9,6 +9,7 @@ import androidx.activity.ComponentActivity
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import epf.min2.projet_materiel_mobile.Api.ApiManager
 import kotlinx.coroutines.runBlocking
 import retrofit2.Response
@@ -21,7 +22,7 @@ class PaysListActivity : AppCompatActivity() {
 
         val recyclerView = findViewById<RecyclerView>(R.id.pays_recyclerview)
         val barreRecherche = findViewById<SearchView>(R.id.searchViewPaysList)
-        val addToFavoritesButton = findViewById<Button>(R.id.buttonFavorites)
+        val addToFavoritesButton = findViewById<FloatingActionButton>(R.id.buttonFavorites)
 
         val apiManager = ApiManager()
 
@@ -75,13 +76,9 @@ class PaysListActivity : AppCompatActivity() {
                 return true
             }
         })
-        val buttonFavorites = findViewById<Button>(R.id.buttonFavorites)
-        buttonFavorites.setOnClickListener { // Ouvrir la page des favoris
-            val intent: Intent = Intent(
-                this@PaysListActivity,
-                PaysFavorisActivity::class.java
-            )
-            startActivity(intent)
+        val Favorites = findViewById<FloatingActionButton>(R.id.buttonFavorites)
+        Favorites.setOnClickListener {
+            startActivity(Intent(this, PaysFavorisActivity::class.java))
         }
 
     }

@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="#BED4E6">
 
 
-        <Button
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:text="Mes Favoris"
-            android:id="@+id/buttonFavorites"
+<!--        <Button-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="100dp"-->
+<!--            android:text="Mes Favoris"-->
+<!--            android:id="@+id/buttonFavorites"-->
 
-            />
+<!--            />-->
  >
 
     <SearchView
@@ -44,9 +45,19 @@ xmlns:tools="http://schemas.android.com/tools"
                 tools:itemCount="10"
                 tools:listitem="@layout/pays_view" />
 
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/buttonFavorites"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-150dp"
+                android:layout_marginLeft="320dp"
+                android:clickable="true"
+                app:srcCompat="@drawable/icons8_favoris_50" />
+
         </LinearLayout>
 
     </ScrollView>
+
 
 
 
