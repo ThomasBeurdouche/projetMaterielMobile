@@ -10,11 +10,14 @@ import androidx.appcompat.app.AppCompatActivity
 import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 
-class DetailPaysActivity :AppCompatActivity(){
+class DetailPaysActivity :AppCompatActivity() {
+
+    private lateinit var favoriteManager: FavoriteManager
     @SuppressLint("SetTextI18n")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail_pays_layout)
+        favoriteManager = FavoriteManager(this)
         val pays = intent.getSerializableExtra("pays") as Pays
 
         val imageView = findViewById<ImageView>(R.id.pays_detail_imageView)
@@ -30,33 +33,29 @@ class DetailPaysActivity :AppCompatActivity(){
             .load(pays.flags.png)
             .into(imageView)
 
-        nameTextView.text=pays.name.official
-        capitalTextView.text=pays.capital.get(0)
+        nameTextView.text = pays.name.official
+        capitalTextView.text = pays.capital.get(0)
         flagTextView.text = pays.flags.alt
         capitalTextView.text = "Capitale: ${pays.capital.joinToString(", ")}"
         continentTextView.text = "Continent: ${pays.continents.joinToString(", ")}"
 
+
         addToFavoritesButton.setOnClickListener {
-            val sharedPreferences = getSharedPreferences("Favorites", MODE_PRIVATE)
-            val editor = sharedPreferences.edit()
+            favoriteManager.addFavorite(pays)
 
-            val favoritesJson = Gson().toJson(pays)
-            editor.putString("favorites", favoritesJson)
+        }}}
 
-            editor.apply()
-
-        }
-
-//        fun getFavorites(): List<Country> {
+//
+//        addToFavoritesButton.setOnClickListener {
 //            val sharedPreferences = getSharedPreferences("Favorites", MODE_PRIVATE)
-//            val favoritesJson = sharedPreferences.getString("favorites", "")
-//            return if (favoritesJson!= null) {
-//                Gson().fromJson(favoritesJson, object : TypeToken<List<Country>>() {}.type)
-//            } else {
-//                emptyList()
-//            }
+//            val editor = sharedPreferences.edit()
+//
+//            val favoritesJson = Gson().toJson(pays)
+//            editor.putString("favorites", favoritesJson)
+//
+//            editor.apply()
+//
 //        }
 
+//
 
-    }
-}
