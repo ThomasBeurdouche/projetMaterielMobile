@@ -12,6 +12,7 @@ import epf.min2.projet_materiel_mobile.Api.ApiManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 class PaysListActivity : AppCompatActivity() {
@@ -31,7 +32,7 @@ class PaysListActivity : AppCompatActivity() {
 
         CoroutineScope(Dispatchers.Main).launch {
             recyclerView.layoutManager = LinearLayoutManager(this@PaysListActivity, LinearLayoutManager.VERTICAL, false)
-            recyclerView.adapter = PaysAdapter(apiManager.getPays())
+            recyclerView.adapter = PaysAdapter(withContext(Dispatchers.IO){apiManager.getPays()} )
             animation.dismiss()
         }
 
@@ -46,7 +47,7 @@ class PaysListActivity : AppCompatActivity() {
 
                 CoroutineScope(Dispatchers.Main).launch {
                     recyclerView.layoutManager = LinearLayoutManager(this@PaysListActivity, LinearLayoutManager.VERTICAL, false)
-                    recyclerView.adapter = PaysAdapter(apiManager.getPaysByName(query))
+                    recyclerView.adapter = PaysAdapter(withContext(Dispatchers.IO){apiManager.getPaysByName(query)})
                     animation.dismiss()
                 }
 
