@@ -18,7 +18,9 @@ class DetailPaysActivity :AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail_pays_layout)
         favoriteManager = FavoriteManager(this)
-        val pays = intent.getSerializableExtra("pays") as Pays
+//        val pays = intent.getSerializableExtra("pays") as Pays
+        val paysJson = intent.getStringExtra("pays")
+        val pays = Gson().fromJson(paysJson, Pays::class.java)
 
         val imageView = findViewById<ImageView>(R.id.pays_detail_imageView)
         val nameTextView = findViewById<TextView>(R.id.pays_detail_nameTextView)

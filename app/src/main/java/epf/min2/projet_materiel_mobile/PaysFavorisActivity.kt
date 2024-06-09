@@ -1,5 +1,6 @@
 package epf.min2.projet_materiel_mobile
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +30,12 @@ class PaysFavorisActivity : AppCompatActivity(){
                     textView.text = listPays[position].name.official
                     return view
                 }
+            }
+            listView.setOnItemClickListener { _, _, position, _ ->
+                val selectedPays = listPays[position]
+                val intent = Intent(this, DetailPaysActivity::class.java)
+                intent.putExtra("pays", Gson().toJson(selectedPays))
+                startActivity(intent)
             }
         } else {
             val tvFavorisMessage = findViewById<TextView>(R.id.tvFavorisMessage)
