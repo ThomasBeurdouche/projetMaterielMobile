@@ -1,0 +1,19 @@
+Bienvenue dans l'application mobile "Pays du Monde". 
+Cette application permet de rechercher des informations sur différents pays à travers le monde, de consulter des fiches détaillées de chaque pays et de mettre en favoris certains pays pour un accès rapide même hors ligne.
+
+1-	Liste des Pays
+Affichage des pays : La liste des pays affiche le drapeau et le nom de chaque pays correspondant à votre recherche.
+Sélection d'un pays : Touchez un pays dans la liste pour voir sa fiche détaillée.
+Ajouter aux favoris: Touchez le bouton "Ajouter aux favoris" pour enregistrer le pays dans vos favoris.
+
+2-	Recherche de Pays
+Utilisez la barre de recherche en haut de l'écran pour rechercher un pays par son nom ou par le nom de sa capitale.
+Tapez une partie du nom et le ou les pays correspondants s’afficheront
+
+3-	Favoris
+Accéder aux favoris : Touchez l'icône "Favoris" sur la page principale pour afficher la liste de vos pays favoris.
+Accès Hors Ligne : Les pays que vous avez ajoutés en favoris sont disponibles hors ligne. Vous pouvez consulter leur fiche détaillée même sans connexion internet.
+
+4-	Quiz
+Accéder au quiz : Au niveau de la liste des pays vous pouvez appuyer sur le boutton « Quiz » pour accéder au quiz des pays.
+Jouer au quiz : Ce quiz consiste à deviner le nom du pays par rapport à son drapeau puis une image vous indique si la réponse est correct ou non
