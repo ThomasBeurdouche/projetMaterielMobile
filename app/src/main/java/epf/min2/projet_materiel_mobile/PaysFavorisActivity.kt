@@ -37,7 +37,7 @@ class PaysFavorisActivity : AppCompatActivity(){
 
             val recyclerView = findViewById<RecyclerView>(R.id.pays_favoris_recyclerview)
             recyclerView.layoutManager = LinearLayoutManager(this@PaysFavorisActivity, LinearLayoutManager.VERTICAL, false)
-            recyclerView.adapter = PaysAdapter(listPays, "PaysFavorisActivity")
+            recyclerView.adapter = PaysAdapter(listPays)
 
         } else {
             val tvFavorisMessage = findViewById<TextView>(R.id.tvFavorisMessage)

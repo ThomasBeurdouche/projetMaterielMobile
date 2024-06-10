@@ -17,19 +17,13 @@ import com.squareup.picasso.Picasso
 class DetailPaysActivity :AppCompatActivity() {
 
     private lateinit var favoriteManager: FavoriteManager
-    private var previousActivity: String? = null
-    @SuppressLint("SetTextI18n")
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.detail_pays_layout)
         favoriteManager = FavoriteManager(this)
-//        val pays = intent.getSerializableExtra("pays") as Pays
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        setSupportActionBar(toolbar)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
 
-        previousActivity = intent.getStringExtra("previousActivity")
+
         val paysJson = intent.getStringExtra("pays")
         val pays = Gson().fromJson(paysJson, Pays::class.java)
 
@@ -39,9 +33,9 @@ class DetailPaysActivity :AppCompatActivity() {
         val flagTextView = findViewById<TextView>(R.id.pays_detail_flagTextView)
 
         val continentTextView = findViewById<TextView>(R.id.pays_detail_continentTextView)
-        val languageTextView = findViewById<TextView>(R.id.pays_detail_languagesTextView)
         val addToFavoritesButton = findViewById<Button>(R.id.addToFavoritesButton)
         val removeFromFavoritesButton = findViewById<Button>(R.id.removeFromFavoritesButton)
+        val returnBoutton = findViewById<Button>(R.id.button_retour_detail)
 
 
 
@@ -73,31 +67,11 @@ class DetailPaysActivity :AppCompatActivity() {
             addToFavoritesButton.visibility = View.VISIBLE
             removeFromFavoritesButton.visibility = View.GONE
         }
-    }
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            android.R.id.home -> {
-                onBackPressed()
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
+
+        returnBoutton.setOnClickListener{
+            finish()
         }
     }
-
-    override fun onBackPressed() {
-        previousActivity?.let {
-            val intent = when (it) {
-                "PaysListActivity" -> Intent(this, PaysListActivity::class.java)
-                "PaysFavorisActivity" -> Intent(this, PaysFavorisActivity::class.java)
-                else -> null
-            }
-            intent?.let {
-                it.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
-                startActivity(it)
-            }
-        } ?: super.onBackPressed()
-    }
-
 
 
 }

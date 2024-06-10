@@ -10,13 +10,24 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="8dp">
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="?attr/colorPrimary"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            android:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            android:background="@color/purple_200"
+            android:orientation="horizontal"
+            android:gravity="center"
+            >
+
+            <Button
+                android:id="@+id/button_retour_detail"
+                android:layout_width="60dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/baseline_arrow_back_24"
+                android:layout_gravity="center"
+                />
+
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/pays_detail_imageView"
