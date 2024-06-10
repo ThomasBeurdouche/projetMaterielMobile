@@ -16,17 +16,31 @@
 <!--            android:id="@+id/buttonFavorites"-->
 
 <!--            />-->
- >
 
-    <SearchView
-        android:id="@+id/searchViewPaysList"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@color/design_default_color_background"
+        android:orientation="horizontal"
         >
+        <SearchView
+            android:id="@+id/searchViewPaysList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/design_default_color_background"
+            android:layout_margin="14dp"
+            android:layout_weight="1"
+            />
 
-    </SearchView>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/buttonFavorites"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:layout_margin="10dp"
+            app:srcCompat="@drawable/icons8_favoris_50" />
+    </LinearLayout>
+
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -45,20 +59,9 @@
                 tools:itemCount="10"
                 tools:listitem="@layout/pays_view" />
 
-            <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/buttonFavorites"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="-150dp"
-                android:layout_marginLeft="320dp"
-                android:clickable="true"
-                app:srcCompat="@drawable/icons8_favoris_50" />
-
         </LinearLayout>
 
     </ScrollView>
-
-
 
 
 </LinearLayout>

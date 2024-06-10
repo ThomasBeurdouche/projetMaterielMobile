@@ -45,78 +45,93 @@ class ApiManager() {
         apiService = retrofit.create(ApiService::class.java)
     }
 
-    suspend fun getPays():Response<List<Pays>>{
-        return apiService.getPays()
-    }
-
-    suspend fun getPaysByName(query:String?):List<Pays>{
+    fun getPays():List<Pays>{
         var listPays : List<Pays> = listOf()
-        try {
-            var response1: Response<List<Pays>>
-            var response2: Response<List<Pays>>
-            var success = false
-            var attempts = 0
-            val maxAttempts = 5
 
-            while (!success && attempts < maxAttempts) {
-                try {
-                    response1 = apiService.getPaysByNameOfPays(query?.trimEnd())
-                    if (response1.isSuccessful && response1.body() != null) {
-                        success = true
-                        listPays = response1.body()!!
-                    } else {
-                        println("Error: ${response1.errorBody()}")
-                        Thread.sleep(1000)
+        runBlocking {
+            try {
+                var response: Response<List<Pays>>
+                var success = false
+                var attempts = 0
+                val maxAttempts = 5
+
+                while (!success && attempts < maxAttempts) {
+                    try {
+                        response = apiService.getPays()
+                        if (response.isSuccessful && response.body() != null) {
+                            success = true
+                            listPays = response.body()!!
+                        } else{
+                            println("Error: ${response.errorBody()}")
+                            Thread.sleep(1000)
+                        }
+                    } catch (e: Exception) {
+                        attempts++
+                        println("Exception: $e")
+                        if (attempts >= maxAttempts) {
+                        } else {
+                            Thread.sleep(1000)
+                        }
                     }
-                } catch (e: Exception) {
-                    attempts++
-                    println("Exception: $e")
                 }
+            } catch (e: Exception) {
+                println("Exception: $e")
             }
-            success=false
-            attempts = 0
-
-            while (!success && attempts < maxAttempts) {
-                try {
-                    response2 = apiService.getPaysByNameOfCapital(query?.trimEnd())
-                    if (response2.isSuccessful && response2.body() != null) {
-                        success = true
-                        listPays += response2.body()!!
-                    } else {
-                        println("Error: ${response2.errorBody()}")
-                        Thread.sleep(1000)
-                    }
-                } catch (e: Exception) {
-                    attempts++
-                    println("Exception: $e")
-                }
-            }
-
-        } catch (e: Exception) {
-            println("Exception: $e")
         }
-
         return listPays
-
     }
 
-    /*
-    suspend fun modifyUser(user:User):Response<Unit>{
-        return apiService.modifyUser(user.id,user)
+    fun getPaysByName(query:String?):List<Pays>{
+        var listPays : List<Pays> = listOf()
+        runBlocking {
+            try {
+                var response1: Response<List<Pays>>
+                var response2: Response<List<Pays>>
+                var success = false
+                var attempts = 0
+                val maxAttempts = 5
+
+                while (!success && attempts < maxAttempts) {
+                    try {
+                        response1 = apiService.getPaysByNameOfPays(query?.trimEnd())
+                        if (response1.isSuccessful && response1.body() != null) {
+                            success = true
+                            listPays += response1.body()!!
+                        } else if (response1.code()==404){
+                            success = true
+                        }else  {
+                            println("Error: ${response1.errorBody()}")
+                            Thread.sleep(1000)
+                        }
+                    } catch (e: Exception) {
+                        attempts++
+                        println("Exception: $e")
+                    }
+                }
+                success=false
+                attempts = 0
+
+                while (!success && attempts < maxAttempts) {
+                    try {
+                        response2 = apiService.getPaysByNameOfCapital(query?.trimEnd())
+                        if (response2.isSuccessful && response2.body() != null) {
+                            success = true
+                            listPays += response2.body()!!
+                        } else if (response2.code()==404){
+                            success= true
+                        }else  {
+                            println("Error: ${response2.errorBody()}")
+                            Thread.sleep(1000)
+                        }
+                    } catch (e: Exception) {
+                        attempts++
+                        println("Exception: $e")
+                    }
+                }
+            } catch (e: Exception) {
+                println("Exception: $e")
+            }
+        }
+        return listPays
     }
-
-    suspend fun createUser(newUser: NewUser):Response<Unit>{
-        return apiService.createUser(newUser)
-    }
-
-    suspend fun getUsers():Response<List<User>> {
-        return apiService.getUsers()
-    }
-
-    suspend fun getUser(idUser : String):Response<User>{
-        return apiService.getUser(idUser)
-    }
-    */
-
-
 }
