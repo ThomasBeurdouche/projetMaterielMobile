@@ -2,8 +2,9 @@ package epf.min2.projet_materiel_mobile
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.os.Bundle
+import android.os.Bundle 
 import android.view.MenuItem
+import android.view.View
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
@@ -40,6 +41,9 @@ class DetailPaysActivity :AppCompatActivity() {
         val continentTextView = findViewById<TextView>(R.id.pays_detail_continentTextView)
         val languageTextView = findViewById<TextView>(R.id.pays_detail_languagesTextView)
         val addToFavoritesButton = findViewById<Button>(R.id.addToFavoritesButton)
+        val removeFromFavoritesButton = findViewById<Button>(R.id.removeFromFavoritesButton)
+
+
 
         Picasso.get()
             .load(pays.flags.png)
@@ -51,11 +55,25 @@ class DetailPaysActivity :AppCompatActivity() {
         capitalTextView.text = "Capitale: ${pays.capital.joinToString(", ")}"
         continentTextView.text = "Continent: ${pays.continents.joinToString(", ")}"
 
+        if (favoriteManager.isFavorite(pays)) {
+            addToFavoritesButton.visibility = View.GONE
+            removeFromFavoritesButton.visibility = View.VISIBLE
+        } else {
+            addToFavoritesButton.visibility = View.VISIBLE
+            removeFromFavoritesButton.visibility = View.GONE
+        }
+
 
         addToFavoritesButton.setOnClickListener {
             favoriteManager.addFavorite(pays)
 
-        }}
+        }
+        removeFromFavoritesButton.setOnClickListener {
+            favoriteManager.removeFavorite(pays)
+            addToFavoritesButton.visibility = View.VISIBLE
+            removeFromFavoritesButton.visibility = View.GONE
+        }
+    }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             android.R.id.home -> {
@@ -84,17 +102,5 @@ class DetailPaysActivity :AppCompatActivity() {
 
 }
 
-//
-//        addToFavoritesButton.setOnClickListener {
-//            val sharedPreferences = getSharedPreferences("Favorites", MODE_PRIVATE)
-//            val editor = sharedPreferences.edit()
-//
-//            val favoritesJson = Gson().toJson(pays)
-//            editor.putString("favorites", favoritesJson)
-//
-//            editor.apply()
-//
-//        }
 
-//
 
