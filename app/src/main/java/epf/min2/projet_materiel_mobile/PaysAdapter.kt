@@ -8,11 +8,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.gson.Gson
 import com.squareup.picasso.Picasso
 
 class PaysViewHolder(view : View) : RecyclerView.ViewHolder(view)
 
-class PaysAdapter(val pays: List<Pays>) : RecyclerView.Adapter<PaysViewHolder>() {
+class PaysAdapter(val pays: List<Pays>, val previousActivity: String) : RecyclerView.Adapter<PaysViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PaysViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val view = layoutInflater.inflate(R.layout.pays_view,parent,false)
@@ -38,7 +39,8 @@ class PaysAdapter(val pays: List<Pays>) : RecyclerView.Adapter<PaysViewHolder>()
         cardVIew.setOnClickListener() {
             with(it.context){
                 val intent = Intent(this, DetailPaysActivity::class.java)
-                intent.putExtra("pays",pays)
+                intent.putExtra("pays",Gson().toJson(pays))
+                intent.putExtra("previousActivity", previousActivity)
                 startActivity(intent)
             }
         }

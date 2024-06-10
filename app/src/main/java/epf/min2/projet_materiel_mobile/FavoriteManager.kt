@@ -20,7 +20,9 @@ class FavoriteManager(context: Context) {
         favorites.removeAll { it.name.common == country.name.common }
         saveFavorites(favorites)
     }
-
+    fun isFavorite(pays: Pays): Boolean {
+        return getFavorites().any { it.name.official == pays.name.official }
+    }
     fun getFavorites(): List<Pays> {
         val json = sharedPreferences.getString("favorite_countries", null) ?: return emptyList()
         val type = object : TypeToken<List<Pays>>() {}.type
