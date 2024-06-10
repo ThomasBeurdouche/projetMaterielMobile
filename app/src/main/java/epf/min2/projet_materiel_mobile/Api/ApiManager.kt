@@ -53,7 +53,7 @@ class ApiManager() {
                 var response: Response<List<Pays>>
                 var success = false
                 var attempts = 0
-                val maxAttempts = 5
+                val maxAttempts = 3
 
                 while (!success && attempts < maxAttempts) {
                     try {
@@ -89,7 +89,7 @@ class ApiManager() {
                 var response2: Response<List<Pays>>
                 var success = false
                 var attempts = 0
-                val maxAttempts = 5
+                val maxAttempts = 3
 
                 while (!success && attempts < maxAttempts) {
                     try {

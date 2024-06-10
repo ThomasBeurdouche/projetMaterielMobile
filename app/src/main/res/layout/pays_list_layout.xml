@@ -38,9 +38,24 @@
             android:clickable="true"
             android:layout_margin="10dp"
             app:srcCompat="@drawable/icons8_favoris_50" />
+
     </LinearLayout>
 
+    <Button
+        android:id="@+id/button_reload_pays_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Recharger la page"
+        android:textSize="20dp"
+        android:visibility="gone"/>
 
+    <Button
+        android:id="@+id/button_quiz_pays_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Quiz"
+        android:textSize="20dp"
+        android:visibility="gone"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -50,7 +65,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/pays_recyclerview"
